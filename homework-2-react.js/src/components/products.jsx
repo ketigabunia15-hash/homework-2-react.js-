@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const [deletedProducts, setDeletedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -15,8 +16,9 @@ export default function Products() {
       });
   }, []);
 
-  const handleDelete = (id) => {
-    setProducts(products.filter((product) => product.id !== id));
+  const handleDelete = (product) => {
+     setProducts(products.filter((p) => p.id !== product.id));
+     setDeletedProducts([...deletedProducts, product]);
   };
 
   if (loading) {
@@ -57,7 +59,7 @@ export default function Products() {
             <p>${product.price}</p>
 
             <button
-              onClick={() => handleDelete(product.id)}
+              onClick={() => handleDelete(product)}
               style={{
                 background: "red",
                 color: "white",
